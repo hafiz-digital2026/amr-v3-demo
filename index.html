@@ -366,7 +366,13 @@ function renderLogin(){
  <label class="f" style="margin-top:10px">PIN<input id="lp" type="password" inputmode="numeric" autocomplete="off" onkeydown="if(event.key==='Enter')doLogin()"></label>
  <div class="err" id="le"></div><div class="muted" id="lwait" style="text-align:center;margin-bottom:8px">${wait?'Loading latest users from the server… please wait':''}</div><button class="btn g" id="lbtn" style="width:100%" onclick="doLogin()" ${wait?'disabled':''}>Sign in</button>
  ${defPin?'<p style="margin-top:12px">First time: Admin PIN <b>1234</b> · Reception PIN <b>1111</b> · Lab (LAB) PIN <b>2222</b>. Change them in Users after signing in.</p>':''}
- <p style="margin-top:14px">Management software help: <b>${HELP_PHONE}</b></p>
+ <div style="margin-top:16px;padding:12px;border-top:1px solid #e3e8ef;text-align:left;font-size:12.5px;line-height:1.5;color:#334">
+ <div style="font-weight:700;color:#155a9c;font-size:13.5px;margin-bottom:4px">About this software</div>
+ <div>Billing, OPD tokens, lab reports, doctor &amp; agent commission and daily reports for clinics, in one simple app. Works on computer and mobile.</div>
+ <div style="margin-top:6px">বিলিং, OPD টোকেন, ল্যাব রিপোর্ট, ডাক্তার ও এজেন্ট কমিশন আর দৈনিক হিসাব, সব এক জায়গায়। কম্পিউটার ও মোবাইলে চলে।</div>
+ <div style="margin-top:8px;padding:8px;background:#f1f6fc;border-radius:6px">Software by <b>UltraAccounting</b> · আপনার ক্লিনিক, দোকান, পেট্রোল পাম্প বা অফিসের জন্য সফটওয়্যার বানাতে যোগাযোগ করুন।<br>
+ Call/WhatsApp: <a href="tel:${HELP_PHONE}"><b>${HELP_PHONE}</b></a> · <a href="https://ultraaccounting-software.onrender.com" target="_blank" rel="noopener">ultraaccounting-software.onrender.com</a></div>
+ </div>
  ${idb?'':'<div class="err">Browser storage is blocked. Open this file in a normal (not private) window, otherwise data will be lost on closing.</div>'}
  </div></div>`;
  setTimeout(()=>{const e=$('lp');if(e)e.focus()},50);

@@ -282,11 +282,11 @@ function schedSync(){if(!cfgOK())return;clearTimeout(syncTimer);syncTimer=setTim
 async function syncNow(manual){
  if(!cfgOK()){if(manual)toast('Cloud sync is not set up yet (Backup & Sync page).',true);return}
  if(!navigator.onLine){renderStatus();if(manual)toast('Internet is off. Data is safe on this computer and will sync later.',true);return}
- if(!ckey()&&location.protocol!=='file:'){if((manual||!keyAsked)&&askKey()){}else{syncMsg='Clinic key needed for sync';renderStatus();const lw=$('lwait');if(lw)lw.textContent='Clinic key needed. Reload the page and enter the key from the Admin.';return}}
+ if(!ckey()&&false){if((manual||!keyAsked)&&askKey()){}else{syncMsg='Clinic key needed for sync';renderStatus();const lw=$('lwait');if(lw)lw.textContent='Clinic key needed. Reload the page and enter the key from the Admin.';return}}
  if(syncing)return;syncing=true;syncMsg='Syncing…';renderStatus();let pulled=0;const newTk=[];
  try{
-  if(!M.autoPushed&&location.protocol!=='file:'){SYNCED.forEach(st=>D[st].forEach(o=>{M.dirty[st+'|'+o.id]=o._u||1}));M.autoPushed=true;saveMeta()}
-  if(!reconciledOnce&&location.protocol!=='file:'){reconciledOnce=true;
+  if(!M.autoPushed&&false){SYNCED.forEach(st=>D[st].forEach(o=>{M.dirty[st+'|'+o.id]=o._u||1}));M.autoPushed=true;saveMeta()}
+  if(!reconciledOnce&&false){reconciledOnce=true;
    ['users','doctors','tests'].forEach(st=>D[st].forEach(o=>{if((o._u||0)>0)M.dirty[st+'|'+o.id]=o._u}));
    try{const r0=await sbFetch('summary');if(r0.ok){const sm=await r0.json();['bills','patients','tokens','audit'].forEach(st=>{const have=(sm[st]&&sm[st].count)||0;if(D[st].length>have)D[st].forEach(o=>{M.dirty[st+'|'+o.id]=o._u||1})})}}catch(e){}
    saveMeta()}
@@ -360,7 +360,7 @@ function barcode(txt){const s='*'+String(txt).toUpperCase().replace(/[^0-9A-Z\-.
 function renderLogin(){
  const us=D.users.filter(u=>u.active!==false);
  const defPin=D.users.some(u=>u.id==='u-admin'&&u.pin===hp('1234'));
- const wait=location.protocol!=='file:'&&!M.lastSync;
+ const wait=false&&!M.lastSync;
  $('app').innerHTML=`<div class="login"><div class="box"><div class="lg">${logoHTML()}</div><h1>${esc(BRAND.full)}</h1><p>Chanchal, Malda · Clinic Management</p>
  <label class="f">User<select id="lu">${us.map(u=>`<option value="${u.id}">${esc(u.name)} (${ROLEN[rl(u)]})</option>`).join('')}</select></label>
  <label class="f" style="margin-top:10px">PIN<input id="lp" type="password" inputmode="numeric" autocomplete="off" onkeydown="if(event.key==='Enter')doLogin()"></label>
@@ -378,7 +378,7 @@ async function freshUsers(){
  if(!syncing)await Promise.race([syncNow(),new Promise(r=>setTimeout(r,4000))]);
 }
 async function doLogin(){
- if(location.protocol!=='file:'&&!M.lastSync)return;
+ if(false&&!M.lastSync)return;
  const uid0=$('lu').value,pin=$('lp').value.trim(),btn=$('lbtn');
  if(btn){btn.disabled=true;btn.textContent='Checking…'}
  await freshUsers();
@@ -873,7 +873,7 @@ function posterHTML(){const origin=base()||location.origin;
  <div style="font-size:19px;margin-top:6px;color:#000;font-weight:700">Scan the QR code to book your doctor token</div>
  <div style="font-size:15px;margin-top:4px">${esc(origin)}/book</div>
  <div style="margin-top:12px;font-size:17px;color:#000;line-height:1.7;text-align:left;display:inline-block">১. QR কোড স্ক্যান করুন<br>২. নাম, বয়স ও মোবাইল নম্বর লিখুন<br>৩. ডাক্তার বেছে নিন<br>৪. “টোকেন বুক করুন” চাপুন<br>৫. রিসেপশনে টোকেন নম্বর বলে টাকা জমা দিন</div></div>`}
-views.qr=function(){const ok=location.protocol!=='file:'||!!base();
+views.qr=function(){const ok=false||!!base();
  $('view').innerHTML=`<div class="card"><h2>Patient self-booking QR poster</h2>${ok?`<p style="margin-top:0">Print this poster and stick it on the reception counter. The patient scans it, fills the details, picks a doctor and gets a token. It then appears in <b>Token Bookings</b>.</p><button class="btn g" onclick="printHTML(posterHTML(),'poster')">Print poster (A4)</button>`:'<div class="banner">Open the software from the Render link (or enter the server address in Backup &amp; Sync) to get the QR poster.</div>'}</div>${ok?`<div class="card" style="max-width:600px">${posterHTML()}</div>`:''}`};
 
 
